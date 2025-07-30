@@ -144,12 +144,18 @@
             padding-left: 1.5rem;
             margin-top: 1rem;
         }
+        /* Styles for new diagram slide */
+        .arrow-head {
+            fill: #94a3b8;
+        }
+        .future-arrow-head {
+            fill: #60a5fa;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-8">
 
     <div id="presentation-container" class="w-full max-w-7xl">
-        <!-- Slide 1: Title -->
         <div class="slide active title-slide">
             <div class="slide-content">
                 <div>
@@ -163,7 +169,6 @@
             </div>
         </div>
 
-        <!-- Slide 2: The Mission -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
@@ -182,7 +187,6 @@
             </div>
         </div>
 
-        <!-- Slide 3: My Mandate -->
         <div class="slide">
             <div class="slide-content w-full justify-center">
                 <div class="w-full">
@@ -203,7 +207,6 @@
             </div>
         </div>
         
-        <!-- Slide 4: Driving Change - The Problem -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
@@ -225,7 +228,6 @@
             </div>
         </div>
 
-        <!-- Slide 5: Driving Change - The Solution -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Leader guiding a team with a chart" class="slide-image rounded-l-lg">
@@ -244,7 +246,6 @@
             </div>
         </div>
 
-        <!-- Slide 6: High-Impact Investment - The Problem -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
@@ -266,7 +267,6 @@
             </div>
         </div>
 
-        <!-- Slide 7: High-Impact Investment - The Solution -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop" alt="Team collaborating around a table with sticky notes" class="slide-image rounded-l-lg">
@@ -286,7 +286,6 @@
             </div>
         </div>
 
-        <!-- Slide 8: Product Velocity - The Problem -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
@@ -308,7 +307,6 @@
             </div>
         </div>
 
-        <!-- Slide 9: Product Velocity - The Solution -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" alt="Person analyzing a growth chart on a screen" class="slide-image rounded-l-lg">
@@ -328,7 +326,6 @@
             </div>
         </div>
         
-        <!-- Slide 10: Scaling & Reliability - The Problem -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
@@ -338,9 +335,10 @@
                         <p>"A global footprint means our platform must be highly available and performant. Technical debt and a lack of a scaling strategy put our customer SLAs at risk."</p>
                     </div>
                     <ul class="mt-8">
-                        <li><strong>Unknown Scaling Limits:</strong> We lack a clear understanding of our current bottlenecks and performance ceilings.</li>
-                        <li><strong>No Disaster Recovery Plan:</strong> We have no formal plan for failover or service recovery, posing a significant business risk.</li>
-                        <li><strong>Unmanaged Technical Debt:</strong> "Technical hygiene" is not a formal part of our process, leading to compounding issues.</li>
+                        <li><strong>Scaling Limits Unknown:</strong> Current performance bottlenecks are unclear.</li>
+                        <li><strong>No Disaster Recovery:</strong> No formal failover or recovery plan in place.</li>
+                        <li><strong>Technical Debt Unmanaged:</strong> Lacking process for ongoing technical hygiene.</li>
+                        <li><strong>Cost Unpredictable:</strong> Need to design for predictable, scalable cost.</li>
                     </ul>
                 </div>
                 <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop" alt="Image of complex code on a screen, representing technical debt" class="slide-image rounded-r-lg">
@@ -350,7 +348,6 @@
             </div>
         </div>
 
-        <!-- Slide 11: Scaling & Reliability - The Solution -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://static.vecteezy.com/system/resources/thumbnails/057/846/687/small_2x/bearded-technician-working-on-server-rack-maintenance-photo.jpg" alt="Engineers looking at server racks" class="slide-image rounded-l-lg">
@@ -360,7 +357,8 @@
                     <ul class="mt-8">
                         <li><strong>Proactive Monitoring & DR:</strong> Implement robust monitoring to identify bottlenecks, and establish clear failover zones and a disaster recovery plan.</li>
                         <li><strong>Formalise Technical Hygiene:</strong> We will manage technical debt strategically, using dedicated sprints (e.g., 1 in 4) to improve the health of our platform.</li>
-                        <li><strong>Balance Risk and Features:</strong> The decision to prioritise technical work over new features will be a transparent business conversation, balancing risk against objectives.</li>
+                        <li><strong>Balance Risk and Features:</strong> Prioritisation will be a transparent business decision, weighing technical risk against goals.</li>
+                        <li><strong>Design for Cost Predictability:</strong> Architect for scale with controls to manage spend and prevent blowouts.</li>
                     </ul>
                 </div>
             </div>
@@ -369,7 +367,6 @@
             </div>
         </div>
 
-        <!-- Slide 12: Fostering Innovation -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="Team brainstorming with lightbulbs" class="slide-image rounded-l-lg">
@@ -388,7 +385,6 @@
             </div>
         </div>
 
-        <!-- Slide 13: The Vision Part 1: The Strategic Shift -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
@@ -407,15 +403,14 @@
             </div>
         </div>
 
-        <!-- Slide 14: The Vision Part 2: The Architecture -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop" alt="Abstract architectural diagram of connected nodes" class="slide-image rounded-l-lg">
                 <div class="content-container">
-                    <h2 class="slide-title">The Vision: The Abstraction Layer</h2>
+                    <h2 class="slide-title">The Vision: The Intelligence Layer</h2>
                     <p class="slide-subtitle">The Key to a Future-Proof Platform</p>
                     <ul class="mt-8">
-                        <li><strong>A New Architectural Layer:</strong> We will build a single, intelligent **Abstraction Layer** that sits across the entire platform.</li>
+                        <li><strong>A New Architectural Layer:</strong> We will build a single, Intelligence Layer that sits across the entire platform.</li>
                         <li><strong>A Consistent Interface:</strong> All product features will interact with this single layer to access knowledge and trigger actions, simplifying development.</li>
                         <li><strong>Designed for Evolution:</strong> This architecture allows us to add new capabilities without re-building the core product. It is the key to adapting as technology changes.</li>
                     </ul>
@@ -426,16 +421,85 @@
             </div>
         </div>
         
-        <!-- Slide 15: The Vision Part 3: The Components -->
+        <div class="slide">
+            <div class="slide-content flex-col w-full p-0">
+                <div class="w-full text-left p-4" style="background-color:var(--plexus-light-gray); border-bottom: 1px solid #e2e8f0;">
+                     <h2 class="slide-title !text-4xl">The Vision: A Layered Architecture</h2>
+                     <p class="slide-subtitle !text-xl">Visualising the relationship between current and future systems.</p>
+                </div>
+                <div class="flex-grow w-full flex items-center justify-center p-4 sm:p-6 md:p-8" style="background-color: #0B163B;">
+                     <div class="relative w-full max-w-5xl">
+                        <div class="space-y-8">
+                            <div id="ui-layer-box" class="relative p-8 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
+                                <h3 class="absolute -top-3.5 left-6 px-2 font-semibold text-slate-300" style="background-color: #0B163B;">User Interface Layer</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                                    <div id="admin-module" class="p-4 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #00A3FF;">
+                                        Admin Module
+                                    </div>
+                                    <div id="monitoring-dashboard" class="p-4 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #00A3FF;">
+                                        Monitoring Dashboard
+                                    </div>
+                                    <div id="business-user-portal" class="p-4 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #00A3FF;">
+                                        Business User Portal
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="core-systems-box" class="relative p-8 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
+                                <h3 class="absolute -top-3.5 left-6 px-2 font-semibold text-slate-300" style="background-color: #0B163B;">Core Systems Layer</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div id="clm" class="p-3 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #374151;">Contract Lifecycle Management (CLM)</div>
+                                    <div id="workflow" class="p-3 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #374151;">Workflow & Automation Engine</div>
+                                    <div id="dms" class="p-3 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #374151;">Document Management System (DMS)</div>
+                                    <div id="matter" class="p-3 text-center text-white font-semibold rounded-lg shadow-md md:col-start-1" style="background-color: #374151;">Matter Management System</div>
+                                    <div id="user" class="p-3 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #374151;">User & Permissions Management</div>
+                                </div>
+                            </div>
+                            <div id="intelligence-box" class="relative p-8 bg-white/5 rounded-lg border-2 border-dashed border-blue-400 shadow-lg">
+                                <h3 class="absolute -top-3.5 left-6 px-2 font-semibold text-blue-300" style="background-color: #0B163B;">Intelligence Layer (Future)</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                                    <div id="knowledgebase" class="p-4 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-800">Knowledge Base</h3>
+                                    </div>
+                                    <div id="tools" class="p-4 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-800">Tools</h3>
+                                    </div>
+                                    <div id="workforce" class="p-4 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-800">Agent Workforce</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="data-layer-box" class="relative p-8 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
+                                <h3 class="absolute -top-3.5 left-6 px-2 font-semibold text-slate-300" style="background-color: #0B163B;">Data Layer</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                                    <div id="data-lake" class="p-4 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-200">Data Lake / Warehouse</h3>
+                                    </div>
+                                    <div id="etl-pipelines" class="p-4 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-200">ETL Pipelines</h3>
+                                    </div>
+                                    <div id="analytics-reporting" class="p-4 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-200">Analytics & Reporting</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
                     <h2 class="slide-title">The Vision: Pluggable Components</h2>
-                    <p class="slide-subtitle">Powering the Abstraction Layer</p>
+                    <p class="slide-subtitle">Powering the Intelligence Layer</p>
                     <ul class="mt-8">
                         <li><strong>The Knowledgebase (Data):</strong> Plugs into the layer to provide deep understanding from customer data, anonymised patterns, and regulatory updates.</li>
-                        <li><strong>The Toolbox (Capabilities):</strong> A collection of pluggable tools, such as AI models, workflow engines, or data visualisation services.</li>
-                        <li><strong>The Agent Workforce (Action):</strong> A workforce of digital agents (and human users) that uses the Toolbox to carry out tasks orchestrated by the Abstraction Layer.</li>
+                        <li><strong>The Toolbox (Capabilities):</strong> A collection of pluggable tools, such as messaging, analysis, data visualisation and so on.</li>
+                        <li><strong>The Agent Workforce (Action):</strong> A workforce of digital agents (and human users) that uses the Toolbox and the knowledgebase to carry out tasks.</li>
                     </ul>
                 </div>
                 <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=2070&auto=format&fit=crop" alt="A central gear connecting to other external gears" class="slide-image rounded-r-lg">
@@ -445,7 +509,6 @@
             </div>
         </div>
 
-        <!-- Slide 16: The Vision Part 4: Our Defensible IP -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.stockcake.com/public/b/5/2/b523736c-13c0-4804-b535-cc09afc46ae3_large/engineer-reviewing-blueprint-stockcake.jpg" alt="Engineers discussing a blueprint" class="slide-image rounded-l-lg">
@@ -453,7 +516,7 @@
                     <h2 class="slide-title">The Vision: Our Defensible IP</h2>
                     <p class="slide-subtitle">Orchestration & The Data Network Effect</p>
                     <ul class="mt-8">
-                        <li><strong>Orchestration is Core IP:</strong> How the abstraction layer sequences tools and queries the knowledgebase to solve legal problems is our unique, defensible value.</li>
+                        <li><strong>Orchestration is Core IP:</strong> How the intelligence layer sequences tools and queries the knowledgebase to solve legal problems is our unique, defensible value.</li>
                         <li><strong>The Data Network Effect:</strong> As more users interact with the platform, our knowledgebase grows richer. These insights become a powerful, proprietary asset that continuously improves the intelligence of the system for all users.</li>
                         <li><strong>Evolutionary Path:</strong> We will leverage this growing intelligence to gradually shift the platform from a reactive tool (user asks) to a proactive partner (platform suggests).</li>
                     </ul>
@@ -464,7 +527,6 @@
             </div>
         </div>
 
-        <!-- Slide 17: The Vision Part 5: Responsible Innovation -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://cdn-lbjgh.nitrocdn.com/cdXsWjOztjzwPTdnKXYAMxHxmEgGOQiG/assets/images/optimized/rev-4aa28e3/ftthfiberoptic.com/wp-content/uploads/2024/09/03_Advantages-of-Data-Centers.jpg" alt="Secure data center or server room" class="slide-image rounded-l-lg">
@@ -483,7 +545,6 @@
             </div>
         </div>
 
-        <!-- Slide 18: Thank You & Q&A -->
         <div class="slide title-slide">
             <div class="slide-content">
                 <div>
@@ -498,7 +559,6 @@
 
     </div>
 
-    <!-- Navigation -->
     <button id="prevBtn" class="nav-button">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
     </button>
