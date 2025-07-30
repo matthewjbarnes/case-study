@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plexus CTO Strategy Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Plexus Brand Colours */
+        :root {
+            --plexus-navy: #0B163B;
+            --plexus-blue: #00A3FF;
+            --plexus-light-gray: #F7F9FC;
+            --plexus-text: #333D5B;
+            --plexus-text-light: #5C6A92;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e2e8f0; /* A slightly darker gray for contrast */
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column; /* This is key for the layout fix */
+            border: 1px solid #d1d5db;
+        }
+        .slide.active {
+            display: flex;
+        }
+        .slide-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--plexus-navy);
+            letter-spacing: -0.025em;
+        }
+        .slide-subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--plexus-blue);
+            margin-top: 0.5rem;
+        }
+        .slide-content {
+            flex: 1 1 auto; /* Allows content to grow and shrink but not push footer */
+            padding: 2.5rem 4rem; /* Adjusted padding */
+            display: flex;
+            align-items: center;
+            overflow-y: auto; /* Adds scroll only if content is truly too long */
+        }
+        .slide-footer {
+            flex-shrink: 0; /* Prevents the footer from shrinking */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 4rem;
+            background-color: var(--plexus-light-gray);
+            border-top: 1px solid #e2e8f0;
+            color: var(--plexus-text-light);
+            font-size: 0.875rem;
+        }
+        .plexus-logo {
+            font-weight: 700;
+            color: var(--plexus-navy);
+        }
+        .nav-button {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e2e8f0;
+            border-radius: 9999px;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease-in-out;
+            z-index: 10;
+        }
+        .nav-button:hover {
+            background-color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        #prevBtn { left: 1.5rem; }
+        #nextBtn { right: 1.5rem; }
+        
+        ul { list-style-type: none; padding-left: 0; }
+        li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--plexus-text);
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            background-color: var(--plexus-blue);
+            border-radius: 9999px;
+        }
+        strong { color: var(--plexus-navy); font-weight: 600; }
+        
+        .slide-image { width: 45%; height: 100%; object-fit: cover; }
+        .content-container { width: 55%; padding: 0 4rem; }
+        
+        .title-slide {
+            background-color: var(--plexus-navy);
+            color: white;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        .title-slide .slide-content {
+            padding-bottom: 2.5rem; /* Match other slides */
+        }
+        .title-slide .slide-title { color: white; }
+        .title-slide .slide-subtitle { color: var(--plexus-blue); }
+        .title-slide .slide-footer { background: none; border: none; color: rgba(255,255,255,0.6); }
+        .title-slide .plexus-logo { color: white; }
+        .quote {
+            font-style: italic;
+            color: var(--plexus-text-light);
+            border-left: 4px solid var(--plexus-blue);
+            padding-left: 1.5rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-8">
+
+    <div id="presentation-container" class="w-full max-w-7xl">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <div class="slide-content">
+                <div>
+                    <h1 class="slide-title text-6xl">Building the Future of The Law</h1>
+                    <p class="slide-subtitle text-3xl mt-4">A Strategic & Operational Approach</p>
+                    <p class="text-xl text-gray-400 mt-12">CTO Presentation</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Mission -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-container">
+                    <h2 class="slide-title">The Mission</h2>
+                    <p class="slide-subtitle">The Context for Transformation</p>
+                    <ul class="mt-8">
+                        <li><strong>Scaling Rapidly:</strong> Plexus is growing quickly with a global footprint.</li>
+                        <li><strong>Transforming the Future:</strong> Our mission is to fundamentally change the future of The Law.</li>
+                        <li><strong>Investing in Technology:</strong> We are building the next generation of our SaaS platform with a focus on emerging technologies.</li>
+                    </ul>
+                </div>
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2070&auto=format&fit=crop" alt="Abstract image of global connections" class="slide-image rounded-r-lg">
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 3: My Mandate -->
+        <div class="slide">
+            <div class="slide-content w-full justify-center">
+                <div class="w-full">
+                    <h2 class="slide-title">My Mandate</h2>
+                    <p class="slide-subtitle">The Core Questions & Guiding Principle</p>
+                    <div class="mt-8 text-lg text-gray-700 space-y-4">
+                        <p><strong>1. Driving Change:</strong> How do I lead the team through transformation?</p>
+                        <p><strong>2. High-Impact Investment:</strong> How do we ensure we build what matters?</p>
+                        <p><strong>3. Product Velocity:</strong> How do we deliver faster and with higher quality?</p>
+                    </div>
+                    <div class="quote mt-10 text-lg">
+                        <p><strong>Note:</strong> My focus is on the <span style="color: var(--plexus-blue);">approach</span> to building and scaling a product-led business, not on specific product knowledge.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+        
+        <!-- Slide 4: Driving Change - The Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-container">
+                    <h2 class="slide-title">Driving Change: The Problem</h2>
+                    <p class="slide-subtitle">What was the status upon arrival?</p>
+                    <div class="quote mt-8">
+                        <p>"I found a passionate team operating with high startup energy. However, this model was being stretched to its breaking point by rapid growth..."</p>
+                    </div>
+                    <ul class="mt-8">
+                        <li><strong>A Reactive Culture:</strong> Lacked process scaffolding to ensure work on the most valuable initiatives.</li>
+                        <li><strong>A Disconnect Between 'Idea' & 'Code':</strong> A communication gap led to rework and team frustration.</li>
+                        <li><strong>High-Risk "Big Bang" Delivery:</strong> Infrequent, large deployments were the source of production instability.</li>
+                    </ul>
+                </div>
+                <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=2070&auto=format&fit=crop" alt="A complex chart showing tangled lines" class="slide-image rounded-r-lg">
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 5: Driving Change - The Solution -->
+        <div class="slide">
+            <div class="slide-content">
+                 <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Leader guiding a team with a chart" class="slide-image rounded-l-lg">
+                <div class="content-container">
+                    <h2 class="slide-title">Driving Change: The Solution</h2>
+                    <p class="slide-subtitle">Leading with People, Purpose, and Process</p>
+                    <ul class="mt-8">
+                        <li><strong>Lead the People:</strong> My first step is to understand the human dynamics, empower champions, engage the majority, and address resistance directly.</li>
+                        <li><strong>Define the Process:</strong> I combine quantitative data (metrics) with qualitative dialogue (interviews) to diagnose the true root causes.</li>
+                        <li><strong>Align on Purpose:</strong> My leadership philosophy is to bridge customer problems and business ambitions with a coherent technical strategy.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 6: High-Impact Investment - The Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-container">
+                    <h2 class="slide-title">High-Impact Investment: The Problem</h2>
+                    <p class="slide-subtitle">How do we ensure we build what matters?</p>
+                     <div class="quote mt-8">
+                        <p>"The process was highly reactive, operating on a 'first-in, first-out' basis with no clear framework to ensure we were working on the most valuable initiatives."</p>
+                    </div>
+                    <ul class="mt-8">
+                        <li><strong>No Prioritisation Framework:</strong> The "loudest voice" often determined the direction, not strategic value.</li>
+                        <li><strong>Vague Requirements:</strong> Assumptions, not customer data, were driving development, leading to rework.</li>
+                        <li><strong>Effort without Impact:</strong> Teams were busy, but we couldn't be sure their work was driving the highest ROI.</li>
+                    </ul>
+                </div>
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="Dashboards with complex charts and graphs" class="slide-image rounded-r-lg">
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 7: High-Impact Investment - The Solution -->
+        <div class="slide">
+            <div class="slide-content">
+                 <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop" alt="Team collaborating around a table with sticky notes" class="slide-image rounded-l-lg">
+                <div class="content-container">
+                    <h2 class="slide-title">High-Impact Investment: The Solution</h2>
+                    <p class="slide-subtitle">A Disciplined Product Discovery Process</p>
+                    <ul class="mt-8">
+                        <li><strong>Deep User Understanding:</strong> Move from assumptions to knowledge by creating and using clear User Personas.</li>
+                        <li><strong>Transparent Prioritisation:</strong> Replace the 'loudest voice' with a simple Value vs. Effort scoring framework.</li>
+                        <li><strong>A Mandate to 'Slice' for Value:</strong> Break down big ideas to deliver value sooner accelerating learning.</li>
+                        <li><strong>Data-Driven Validation:</strong> Use techniques like A/B testing to validate our hypotheses with real users before committing significant engineering effort, ensuring we maximise our ROI.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 8: Product Velocity - The Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-container">
+                    <h2 class="slide-title">Product Velocity: The Problem</h2>
+                    <p class="slide-subtitle">How do we deliver faster and with higher quality?</p>
+                    <div class="quote mt-8">
+                        <p>"Infrequent, large deployments were inherently risky and the primary source of production instability. The cycle time from need to solution was becoming longer."</p>
+                    </div>
+                    <ul class="mt-8">
+                        <li><strong>Slow, Unpredictable Sprints:</strong> A lack of clarity before coding led to delays and context switching.</li>
+                        <li><strong>Quality as an Afterthought:</strong> Testing was a final, stressful step, not a continuous practice.</li>
+                        <li><strong>No Feedback Loop:</strong> We shipped features but had no systematic way to measure if they were successful.</li>
+                    </ul>
+                </div>
+                <img src="https://images.unsplash.com/photo-1606857521015-7f9fcf423740?q=80&w=2070&auto=format&fit=crop" alt="A well-organized production line" class="slide-image rounded-r-lg">
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 9: Product Velocity - The Solution -->
+        <div class="slide">
+            <div class="slide-content">
+                 <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" alt="Person analyzing a growth chart on a screen" class="slide-image rounded-l-lg">
+                <div class="content-container">
+                    <h2 class="slide-title">Product Velocity: The Solution</h2>
+                    <p class="slide-subtitle">A High-Quality Delivery Engine</p>
+                    <ul class="mt-8">
+                        <li><strong>Clarity Before We Code:</strong> Eliminate ambiguity with collaborative solution design and clear acceptance criteria.</li>
+                        <li><strong>A Disciplined Rhythm of Delivery:</strong> Use short sprints, clear goals, and tangible rituals.</li>
+                        <li><strong>De-risked Releases:</strong> Use feature flags to roll out new capabilities safely, enabling beta access for marquee customers to gather early feedback in a controlled, win-win environment.</li>
+                        <li><strong>Pragmatic Defect Management:</strong> High-severity defects become a sprint goal. We treat them as key indicators of a problem in our "quality by design" process.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+        
+        <!-- Slide 10: Scaling & Reliability - The Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-container">
+                    <h2 class="slide-title">Scaling & Reliability: The Problem</h2>
+                    <p class="slide-subtitle">How do we support a global business?</p>
+                     <div class="quote mt-8">
+                        <p>"A global footprint means our platform must be highly available and performant. Technical debt and a lack of a scaling strategy put our customer SLAs at risk."</p>
+                    </div>
+                    <ul class="mt-8">
+                        <li><strong>Unknown Scaling Limits:</strong> We lack a clear understanding of our current bottlenecks and performance ceilings.</li>
+                        <li><strong>No Disaster Recovery Plan:</strong> We have no formal plan for failover or service recovery, posing a significant business risk.</li>
+                        <li><strong>Unmanaged Technical Debt:</strong> "Technical hygiene" is not a formal part of our process, leading to compounding issues.</li>
+                    </ul>
+                </div>
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop" alt="Image of complex code on a screen, representing technical debt" class="slide-image rounded-r-lg">
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 11: Scaling & Reliability - The Solution -->
+        <div class="slide">
+            <div class="slide-content">
+                 <img src="https://static.vecteezy.com/system/resources/thumbnails/057/846/687/small_2x/bearded-technician-working-on-server-rack-maintenance-photo.jpg" alt="Engineers looking at server racks" class="slide-image rounded-l-lg">
+                <div class="content-container">
+                    <h2 class="slide-title">Scaling & Reliability: The Solution</h2>
+                    <p class="slide-subtitle">Building a Resilient, Global Platform</p>
+                    <ul class="mt-8">
+                        <li><strong>Proactive Monitoring & DR:</strong> Implement robust monitoring to identify bottlenecks, and establish clear failover zones and a disaster recovery plan.</li>
+                        <li><strong>Formalise Technical Hygiene:</strong> We will manage technical debt strategically, using dedicated sprints (e.g., 1 in 4) to improve the health of our platform.</li>
+                        <li><strong>Balance Risk and Features:</strong> The decision to prioritise technical work over new features will be a transparent business conversation, balancing risk against objectives.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 12: Fostering Innovation -->
+        <div class="slide">
+            <div class="slide-content">
+                 <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="Team brainstorming with lightbulbs" class="slide-image rounded-l-lg">
+                <div class="content-container">
+                    <h2 class="slide-title">Fostering a Culture of Innovation</h2>
+                    <p class="slide-subtitle">Making Continuous Improvement Our Habit</p>
+                    <ul class="mt-8">
+                        <li><strong>Look Outward for Inspiration:</strong> We will make it a habit to research how competitors and leaders in adjacent fields are solving similar problems.</li>
+                        <li><strong>Embrace Emerging Tools:</strong> We will actively experiment with and adopt new tools that boost productivity, such as code assistants, AI-powered design tools, and documentation helpers.</li>
+                        <li><strong>Establish Innovation Rituals:</strong> We will formalise experimentation and knowledge sharing through weekly rituals, ensuring that learning and adapting becomes part of the fabric of how we work.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 13: The Vision Part 1: The Strategic Shift -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-container">
+                    <h2 class="slide-title">The Vision: The Strategic Shift</h2>
+                    <p class="slide-subtitle">From Passive Tool to Proactive Partner</p>
+                    <ul class="mt-8">
+                        <li><strong>The Old Way:</strong> Customers must know what legal work they need to do and use our platform to do it.</li>
+                        <li><strong>The New Way:</strong> The platform understands the customer's unique context and tells them what legal work needs to be done.</li>
+                        <li><strong>The Result:</strong> We become an Intelligent Legal Supervisor, increasing efficiency and dramatically reducing risk for our clients.</li>
+                    </ul>
+                </div>
+                <img src="https://www.law.berkeley.edu/wp-content/uploads/2024/10/AI_hands_500w.jpg" alt="Image of a chess board, representing strategy" class="slide-image rounded-r-lg">
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 14: The Vision Part 2: The Architecture -->
+        <div class="slide">
+            <div class="slide-content">
+                 <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop" alt="Abstract architectural diagram of connected nodes" class="slide-image rounded-l-lg">
+                <div class="content-container">
+                    <h2 class="slide-title">The Vision: The Abstraction Layer</h2>
+                    <p class="slide-subtitle">The Key to a Future-Proof Platform</p>
+                    <ul class="mt-8">
+                        <li><strong>A New Architectural Layer:</strong> We will build a single, intelligent **Abstraction Layer** that sits across the entire platform.</li>
+                        <li><strong>A Consistent Interface:</strong> All product features will interact with this single layer to access knowledge and trigger actions, simplifying development.</li>
+                        <li><strong>Designed for Evolution:</strong> This architecture allows us to add new capabilities without re-building the core product. It is the key to adapting as technology changes.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+        
+        <!-- Slide 15: The Vision Part 3: The Components -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-container">
+                    <h2 class="slide-title">The Vision: Pluggable Components</h2>
+                    <p class="slide-subtitle">Powering the Abstraction Layer</p>
+                    <ul class="mt-8">
+                        <li><strong>The Knowledgebase (Data):</strong> Plugs into the layer to provide deep understanding from customer data, anonymised patterns, and regulatory updates.</li>
+                        <li><strong>The Toolbox (Capabilities):</strong> A collection of pluggable tools, such as AI models, workflow engines, or data visualisation services.</li>
+                        <li><strong>The Agent Workforce (Action):</strong> A workforce of digital agents (and human users) that uses the Toolbox to carry out tasks orchestrated by the Abstraction Layer.</li>
+                    </ul>
+                </div>
+                <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=2070&auto=format&fit=crop" alt="A central gear connecting to other external gears" class="slide-image rounded-r-lg">
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 16: The Vision Part 4: Our Defensible IP -->
+        <div class="slide">
+            <div class="slide-content">
+                 <img src="https://images.stockcake.com/public/b/5/2/b523736c-13c0-4804-b535-cc09afc46ae3_large/engineer-reviewing-blueprint-stockcake.jpg" alt="Engineers discussing a blueprint" class="slide-image rounded-l-lg">
+                <div class="content-container">
+                    <h2 class="slide-title">The Vision: Our Defensible IP</h2>
+                    <p class="slide-subtitle">Orchestration & The Data Network Effect</p>
+                    <ul class="mt-8">
+                        <li><strong>Orchestration is Core IP:</strong> How the abstraction layer sequences tools and queries the knowledgebase to solve legal problems is our unique, defensible value.</li>
+                        <li><strong>The Data Network Effect:</strong> As more users interact with the platform, our knowledgebase grows richer. These insights become a powerful, proprietary asset that continuously improves the intelligence of the system for all users.</li>
+                        <li><strong>Evolutionary Path:</strong> We will leverage this growing intelligence to gradually shift the platform from a reactive tool (user asks) to a proactive partner (platform suggests).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 17: The Vision Part 5: Responsible Innovation -->
+        <div class="slide">
+            <div class="slide-content">
+                 <img src="https://cdn-lbjgh.nitrocdn.com/cdXsWjOztjzwPTdnKXYAMxHxmEgGOQiG/assets/images/optimized/rev-4aa28e3/ftthfiberoptic.com/wp-content/uploads/2024/09/03_Advantages-of-Data-Centers.jpg" alt="Secure data center or server room" class="slide-image rounded-l-lg">
+                <div class="content-container">
+                    <h2 class="slide-title">The Vision: Responsible Innovation</h2>
+                    <p class="slide-subtitle">Our Non-Negotiable Principles</p>
+                    <ul class="mt-8">
+                        <li><strong>Security & Data Sovereignty are Paramount:</strong> Design with security at the core and respect all regulations and client data requirements.</li>
+                        <li><strong>Architect for Flexibility:</strong> Our "pluggable" architecture avoids vendor lock-in and ensures long-term strategic freedom.</li>
+                        <li><strong>Focus IP Where It Counts:</strong> We will focus our R&D on our proprietary orchestration layer, leveraging commodity tools for everything else to maximise ROI.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 18: Thank You & Q&A -->
+        <div class="slide title-slide">
+            <div class="slide-content">
+                <div>
+                    <h1 class="slide-title text-6xl">Thank You</h1>
+                    <p class="slide-subtitle text-3xl mt-4">Q&A</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <button id="prevBtn" class="nav-button">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+    </button>
+    <button id="nextBtn" class="nav-button">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            function updateSlides() {
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active');
+                    if (index === currentSlide) {
+                        slide.classList.add('active');
+                    }
+                    const counter = document.getElementById(`slide-counter-${index + 1}`);
+                    if(counter) {
+                       counter.textContent = `Slide ${index + 1} of ${totalSlides}`;
+                    }
+                });
+            }
+
+            function showNextSlide() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlides();
+            }
+
+            function showPrevSlide() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlides();
+            }
+
+            nextBtn.addEventListener('click', showNextSlide);
+            prevBtn.addEventListener('click', showPrevSlide);
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') showNextSlide();
+                else if (e.key === 'ArrowLeft') showPrevSlide();
+            });
+
+            updateSlides();
+        });
+    </script>
+
+</body>
+</html>
