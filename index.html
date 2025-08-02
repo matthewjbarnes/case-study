@@ -24,49 +24,50 @@
         }
         .slide {
             display: none;
-            width: 100%;
-            height: 100%;
-            aspect-ratio: 16 / 9;
+            width: 1056px; /* A4 landscape width at 96 DPI */
+            height: 720px;  /* Reduced height to ensure footer fits */
             background-color: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             overflow: hidden;
             display: flex;
-            flex-direction: column; /* This is key for the layout fix */
-            border: 1px solid #d1d5db;
+            flex-direction: column;
+            margin: 0 auto;
+            position: relative;
         }
         .slide.active {
             display: flex;
         }
         .slide-title {
-            font-size: 2.75rem;
+            font-size: 2.25rem; /* Reduced from 2.75rem */
             font-weight: 800;
             color: var(--plexus-navy);
             letter-spacing: -0.025em;
+            margin-bottom: 0.5rem;
         }
         .slide-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.125rem; /* Reduced from 1.25rem */
             font-weight: 500;
             color: var(--plexus-blue);
             margin-top: 0.5rem;
         }
         .slide-content {
-            flex: 1 1 auto; /* Allows content to grow and shrink but not push footer */
-            padding: 2.5rem 4rem; /* Adjusted padding */
+            flex: 1 1 auto; 
+            padding: 1.5rem 3rem; /* Reduced top/bottom padding */
             display: flex;
             align-items: center;
-            overflow-y: auto; /* Adds scroll only if content is truly too long */
+            min-height: 0;
+            height: calc(720px - 60px); /* Fixed height leaving room for footer */
         }
         .slide-footer {
-            flex-shrink: 0; /* Prevents the footer from shrinking */
+            flex-shrink: 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 4rem;
+            padding: 0.75rem 3rem; /* Reduced padding */
             background-color: var(--plexus-light-gray);
             border-top: 1px solid #e2e8f0;
             color: var(--plexus-text-light);
             font-size: 0.875rem;
+            height: 60px; /* Fixed height for consistency */
         }
         .plexus-logo {
             font-weight: 700;
@@ -85,7 +86,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1-px rgba(0, 0, 0, 0.06);
             transition: all 0.2s ease-in-out;
             z-index: 10;
         }
@@ -93,16 +94,14 @@
             background-color: white;
             transform: translateY(-50%) scale(1.1);
         }
-        #prevBtn { left: 1.5rem; }
-        #nextBtn { right: 1.5rem; }
         
         ul { list-style-type: none; padding-left: 0; }
         li {
             position: relative;
             padding-left: 2rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.125rem;
-            line-height: 1.7;
+            margin-bottom: 1rem; /* Reduced from 1.5rem */
+            font-size: 1rem; /* Reduced from 1.125rem */
+            line-height: 1.6; /* Reduced from 1.7 */
             color: var(--plexus-text);
         }
         li:last-child {
@@ -121,7 +120,7 @@
         strong { color: var(--plexus-navy); font-weight: 600; }
         
         .slide-image { width: 45%; height: 100%; object-fit: cover; }
-        .content-container { width: 55%; padding: 0 4rem; }
+        .content-container { width: 55%; padding: 0 2rem; } /* Reduced padding */
         
         .title-slide {
             background-color: var(--plexus-navy);
@@ -131,7 +130,7 @@
             align-items: center;
         }
         .title-slide .slide-content {
-            padding-bottom: 2.5rem; /* Match other slides */
+            padding: 2rem 3rem; /* Match other slides */
         }
         .title-slide .slide-title { color: white; }
         .title-slide .slide-subtitle { color: var(--plexus-blue); }
@@ -144,24 +143,63 @@
             padding-left: 1.5rem;
             margin-top: 1rem;
         }
-        /* Styles for new diagram slide */
-        .arrow-head {
-            fill: #94a3b8;
+
+        .dark-slide-list li {
+            color: white;
         }
-        .future-arrow-head {
-            fill: #60a5fa;
+        .dark-slide-list li::before {
+             background-color: white;
+        }
+        
+        
+        /* For PDF generation */
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: white;
+            }
+            
+            .slide {
+                page-break-after: always;
+                page-break-inside: avoid;
+                margin: 0;
+                box-shadow: none;
+                border: none;
+                display: flex !important;
+                flex-direction: column;
+                height: 720px;
+                width: 1056px;
+            }
+            
+            .slide:last-child {
+                page-break-after: auto;
+            }
+            
+            .slide-content {
+                flex: 1;
+                page-break-inside: avoid;
+            }
+            
+            .slide-footer {
+                page-break-inside: avoid;
+                break-inside: avoid;
+                flex-shrink: 0;
+                margin-top: auto;
+            }
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-8">
+<body class="min-h-screen" style="margin: 0; padding: 20px; display: flex; align-items: center; justify-content: center;">
 
-    <div id="presentation-container" class="w-full max-w-7xl">
+    <div id="presentation-container">
+        <!-- Slide 1: Title -->
         <div class="slide active title-slide">
             <div class="slide-content">
                 <div>
-                    <h1 class="slide-title text-6xl">Building the Future of The Law</h1>
-                    <p class="slide-subtitle text-3xl mt-4">A Strategic & Operational Approach</p>
-                    <p class="text-xl text-gray-400 mt-12">CTO Presentation</p>
+                    <h1 class="slide-title text-4xl">Building the Future of The Law</h1>
+                    <p class="slide-subtitle text-2xl mt-4">A Strategic & Operational Approach</p>
+                    <p class="text-lg text-gray-400 mt-8">CTO Presentation</p>
                 </div>
             </div>
             <div class="slide-footer">
@@ -169,6 +207,7 @@
             </div>
         </div>
 
+        <!-- Slide 2: The Mission -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
@@ -187,6 +226,7 @@
             </div>
         </div>
 
+        <!-- Slide 3: My Mandate -->
         <div class="slide">
             <div class="slide-content w-full justify-center">
                 <div class="w-full">
@@ -207,10 +247,31 @@
             </div>
         </div>
         
+        <!-- Slide 4: Strategic ROI -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
-                    <h2 class="slide-title">Driving Change: The Problem</h2>
+                    <h2 class="slide-title">Strategic ROI</h2>
+                    <p class="mt-8 text-lg text-gray-700">Strategic ROI goes beyond dollars spent, it’s about what the business becomes capable of.</p>
+                    <ul class="mt-8">
+                        <li><strong>Improved Velocity & Efficiency:</strong> Faster delivery, lower time-to-value, and smarter use of engineering time.</li>
+                        <li><strong>Enhanced Developer Experience:</strong> Better tools and processes lead to higher output and team retention.</li>
+                        <li><strong>Scalability & Future-Proofing:</strong> Prepares us for customer and data growth while unlocking future product capabilities.</li>
+                        <li><strong>Mitigated Risk:</strong> Reduces our exposure to issues from tech debt, outages, and key-person dependencies.</li>
+                    </ul>
+                </div>
+                 <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?q=80&w=2070&auto=format&fit=crop" alt="A person analyzing a dashboard with charts and graphs" class="slide-image rounded-r-lg">
+            </div>
+            <div class="slide-footer">
+                <span class="plexus-logo">PLEXUS</span>
+            </div>
+        </div>
+
+        <!-- Slide 5: Driving Change - The Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <div class="content-container">
+                    <h2 class="slide-title">Driving Change: Problem</h2>
                     <p class="slide-subtitle">What was the status upon arrival?</p>
                     <div class="quote mt-8">
                         <p>"I found a passionate team operating with high startup energy. However, this model was being stretched to its breaking point by rapid growth..."</p>
@@ -228,11 +289,12 @@
             </div>
         </div>
 
+        <!-- Slide 6: Driving Change - The Solution -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Leader guiding a team with a chart" class="slide-image rounded-l-lg">
                 <div class="content-container">
-                    <h2 class="slide-title">Driving Change: The Solution</h2>
+                    <h2 class="slide-title">Driving Change: Solution</h2>
                     <p class="slide-subtitle">Leading with People, Purpose, and Process</p>
                     <ul class="mt-8">
                         <li><strong>Lead the People:</strong> My first step is to understand the human dynamics, empower champions, engage the majority, and address resistance directly.</li>
@@ -246,10 +308,11 @@
             </div>
         </div>
 
+        <!-- Slide 7: High-Impact Investment - The Problem -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
-                    <h2 class="slide-title">High-Impact Investment: The Problem</h2>
+                    <h2 class="slide-title">ROI: Problem</h2>
                     <p class="slide-subtitle">How do we ensure we build what matters?</p>
                      <div class="quote mt-8">
                         <p>"The process was highly reactive, operating on a 'first-in, first-out' basis with no clear framework to ensure we were working on the most valuable initiatives."</p>
@@ -267,11 +330,12 @@
             </div>
         </div>
 
+        <!-- Slide 8: High-Impact Investment - The Solution -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop" alt="Team collaborating around a table with sticky notes" class="slide-image rounded-l-lg">
                 <div class="content-container">
-                    <h2 class="slide-title">High-Impact Investment: The Solution</h2>
+                    <h2 class="slide-title">ROI: Solution</h2>
                     <p class="slide-subtitle">A Disciplined Product Discovery Process</p>
                     <ul class="mt-8">
                         <li><strong>Deep User Understanding:</strong> Move from assumptions to knowledge by creating and using clear User Personas.</li>
@@ -286,10 +350,11 @@
             </div>
         </div>
 
+        <!-- Slide 9: Product Velocity - The Problem -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
-                    <h2 class="slide-title">Product Velocity: The Problem</h2>
+                    <h2 class="slide-title">Product Velocity: Problem</h2>
                     <p class="slide-subtitle">How do we deliver faster and with higher quality?</p>
                     <div class="quote mt-8">
                         <p>"Infrequent, large deployments were inherently risky and the primary source of production instability. The cycle time from need to solution was becoming longer."</p>
@@ -307,11 +372,12 @@
             </div>
         </div>
 
+        <!-- Slide 10: Product Velocity - The Solution -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" alt="Person analyzing a growth chart on a screen" class="slide-image rounded-l-lg">
                 <div class="content-container">
-                    <h2 class="slide-title">Product Velocity: The Solution</h2>
+                    <h2 class="slide-title">Product Velocity: Solution</h2>
                     <p class="slide-subtitle">A High-Quality Delivery Engine</p>
                     <ul class="mt-8">
                         <li><strong>Clarity Before We Code:</strong> Eliminate ambiguity with collaborative solution design and clear acceptance criteria.</li>
@@ -348,6 +414,7 @@
             </div>
         </div>
 
+        <!-- Slide 12: Scaling & Reliability - The Solution -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://static.vecteezy.com/system/resources/thumbnails/057/846/687/small_2x/bearded-technician-working-on-server-rack-maintenance-photo.jpg" alt="Engineers looking at server racks" class="slide-image rounded-l-lg">
@@ -367,6 +434,7 @@
             </div>
         </div>
 
+        <!-- Slide 13: Fostering Innovation -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="Team brainstorming with lightbulbs" class="slide-image rounded-l-lg">
@@ -385,10 +453,11 @@
             </div>
         </div>
 
+        <!-- Slide 14: The Vision Part 1: The Strategic Shift -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
-                    <h2 class="slide-title">The Vision: The Strategic Shift</h2>
+                    <h2 class="slide-title">Vision: The Strategic Shift</h2>
                     <p class="slide-subtitle">From Passive Tool to Proactive Partner</p>
                     <ul class="mt-8">
                         <li><strong>The Old Way:</strong> Customers must know what legal work they need to do and use our platform to do it.</li>
@@ -403,11 +472,12 @@
             </div>
         </div>
 
+        <!-- Slide 15: The Vision Part 2: The Architecture -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=2070&auto=format&fit=crop" alt="Abstract architectural diagram of connected nodes" class="slide-image rounded-l-lg">
                 <div class="content-container">
-                    <h2 class="slide-title">The Vision: The Intelligence Layer</h2>
+                    <h2 class="slide-title">Vision: The Intelligence Layer</h2>
                     <p class="slide-subtitle">The Key to a Future-Proof Platform</p>
                     <ul class="mt-8">
                         <li><strong>A New Architectural Layer:</strong> We will build a single, Intelligence Layer that sits across the entire platform.</li>
@@ -420,65 +490,65 @@
                 <span class="plexus-logo">PLEXUS</span>
             </div>
         </div>
-        
-        <div class="slide">
-            <div class="slide-content flex-col w-full p-0">
-                <div class="w-full text-left p-4" style="background-color:var(--plexus-light-gray); border-bottom: 1px solid #e2e8f0;">
-                     <h2 class="slide-title !text-4xl">The Vision: A Layered Architecture</h2>
-                     <p class="slide-subtitle !text-xl">Visualising the relationship between current and future systems.</p>
+
+        <div class="slide architecture-slide">
+            <div class="slide-content" style="padding: 0; flex-direction: column;">
+                <div class="w-full text-left p-2" style="background-color:var(--plexus-light-gray); border-bottom: 1px solid #e2e8f0; height: 80px;">
+                     <h2 class="slide-title" style="font-size: 1.75rem; margin-bottom: 0.25rem;">Vision: A Layered Architecture</h2>
+                     <p class="slide-subtitle" style="font-size: 1rem;">Visualising the relationship between current and future systems.</p>
                 </div>
-                <div class="flex-grow w-full flex items-center justify-center p-4 sm:p-6 md:p-8" style="background-color: #0B163B;">
-                     <div class="relative w-full max-w-5xl">
-                        <div class="space-y-8">
-                            <div id="ui-layer-box" class="relative p-8 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
-                                <h3 class="absolute -top-3.5 left-6 px-2 font-semibold text-slate-300" style="background-color: #0B163B;">User Interface Layer</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                                    <div id="admin-module" class="p-4 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #00A3FF;">
+                <div class="flex-grow w-full flex items-center justify-center p-2" style="background-color: #0B163B;">
+                     <div class="relative w-full max-w-4xl">
+                        <div class="space-y-4">
+                            <div id="ui-layer-box" class="relative p-4 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
+                                <h3 class="absolute -top-2.5 left-4 px-2 font-semibold text-slate-300 text-sm" style="background-color: #0B163B;">User Interface Layer</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div id="admin-module" class="p-3 text-center text-white font-semibold rounded-lg shadow-md text-sm" style="background-color: #00A3FF;">
                                         Admin Module
                                     </div>
-                                    <div id="monitoring-dashboard" class="p-4 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #00A3FF;">
+                                    <div id="monitoring-dashboard" class="p-3 text-center text-white font-semibold rounded-lg shadow-md text-sm" style="background-color: #00A3FF;">
                                         Monitoring Dashboard
                                     </div>
-                                    <div id="business-user-portal" class="p-4 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #00A3FF;">
+                                    <div id="business-user-portal" class="p-3 text-center text-white font-semibold rounded-lg shadow-md text-sm" style="background-color: #00A3FF;">
                                         Business User Portal
                                     </div>
                                 </div>
                             </div>
-                            <div id="core-systems-box" class="relative p-8 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
-                                <h3 class="absolute -top-3.5 left-6 px-2 font-semibold text-slate-300" style="background-color: #0B163B;">Core Systems Layer</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div id="clm" class="p-3 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #374151;">Contract Lifecycle Management (CLM)</div>
-                                    <div id="workflow" class="p-3 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #374151;">Workflow & Automation Engine</div>
-                                    <div id="dms" class="p-3 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #374151;">Document Management System (DMS)</div>
-                                    <div id="matter" class="p-3 text-center text-white font-semibold rounded-lg shadow-md md:col-start-1" style="background-color: #374151;">Matter Management System</div>
-                                    <div id="user" class="p-3 text-center text-white font-semibold rounded-lg shadow-md" style="background-color: #374151;">User & Permissions Management</div>
+                            <div id="core-systems-box" class="relative p-4 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
+                                <h3 class="absolute -top-2.5 left-4 px-2 font-semibold text-slate-300 text-sm" style="background-color: #0B163B;">Core Systems Layer</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                    <div id="clm" class="p-2 text-center text-white font-semibold rounded-lg shadow-md text-xs" style="background-color: #374151;">Contract Lifecycle Management (CLM)</div>
+                                    <div id="workflow" class="p-2 text-center text-white font-semibold rounded-lg shadow-md text-xs" style="background-color: #374151;">Workflow & Automation Engine</div>
+                                    <div id="dms" class="p-2 text-center text-white font-semibold rounded-lg shadow-md text-xs" style="background-color: #374151;">Document Management System (DMS)</div>
+                                    <div id="matter" class="p-2 text-center text-white font-semibold rounded-lg shadow-md md:col-start-1 text-xs" style="background-color: #374151;">Matter Management System</div>
+                                    <div id="user" class="p-2 text-center text-white font-semibold rounded-lg shadow-md text-xs" style="background-color: #374151;">User & Permissions Management</div>
                                 </div>
                             </div>
-                            <div id="intelligence-box" class="relative p-8 bg-white/5 rounded-lg border-2 border-dashed border-blue-400 shadow-lg">
-                                <h3 class="absolute -top-3.5 left-6 px-2 font-semibold text-blue-300" style="background-color: #0B163B;">Intelligence Layer (Future)</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                                    <div id="knowledgebase" class="p-4 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
-                                        <h3 class="font-bold text-slate-800">Knowledge Base</h3>
+                            <div id="intelligence-box" class="relative p-4 bg-white/5 rounded-lg border-2 border-dashed border-blue-400 shadow-lg">
+                                <h3 class="absolute -top-2.5 left-4 px-2 font-semibold text-blue-300 text-sm" style="background-color: #0B163B;">Intelligence Layer (Future)</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div id="knowledgebase" class="p-3 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-800 text-sm">Knowledge Base</h3>
                                     </div>
-                                    <div id="tools" class="p-4 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
-                                        <h3 class="font-bold text-slate-800">Tools</h3>
+                                    <div id="tools" class="p-3 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-800 text-sm">Tools</h3>
                                     </div>
-                                    <div id="workforce" class="p-4 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
-                                        <h3 class="font-bold text-slate-800">Agent Workforce</h3>
+                                    <div id="workforce" class="p-3 text-center bg-slate-200/80 border-2 border-dashed border-slate-400 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-800 text-sm">Agent Workforce</h3>
                                     </div>
                                 </div>
                             </div>
-                            <div id="data-layer-box" class="relative p-8 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
-                                <h3 class="absolute -top-3.5 left-6 px-2 font-semibold text-slate-300" style="background-color: #0B163B;">Data Layer</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                                    <div id="data-lake" class="p-4 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
-                                        <h3 class="font-bold text-slate-200">Data Lake / Warehouse</h3>
+                            <div id="data-layer-box" class="relative p-4 bg-white/5 rounded-lg border border-slate-700 shadow-lg">
+                                <h3 class="absolute -top-2.5 left-4 px-2 font-semibold text-slate-300 text-sm" style="background-color: #0B163B;">Data Layer</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div id="data-lake" class="p-3 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-200 text-sm">Data Lake / Warehouse</h3>
                                     </div>
-                                    <div id="etl-pipelines" class="p-4 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
-                                        <h3 class="font-bold text-slate-200">ETL Pipelines</h3>
+                                    <div id="etl-pipelines" class="p-3 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-200 text-sm">ETL Pipelines</h3>
                                     </div>
-                                    <div id="analytics-reporting" class="p-4 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
-                                        <h3 class="font-bold text-slate-200">Analytics & Reporting</h3>
+                                    <div id="analytics-reporting" class="p-3 text-center bg-slate-800/80 border-2 border-slate-600 rounded-lg shadow-md">
+                                        <h3 class="font-bold text-slate-200 text-sm">Analytics & Reporting</h3>
                                     </div>
                                 </div>
                             </div>
@@ -490,16 +560,17 @@
                 <span class="plexus-logo">PLEXUS</span>
             </div>
         </div>
-
+        
+        <!-- Slide 16: The Vision Part 3: The Components -->
         <div class="slide">
             <div class="slide-content">
                 <div class="content-container">
-                    <h2 class="slide-title">The Vision: Pluggable Components</h2>
+                    <h2 class="slide-title">Vision: Pluggable Components</h2>
                     <p class="slide-subtitle">Powering the Intelligence Layer</p>
                     <ul class="mt-8">
-                        <li><strong>The Knowledgebase (Data):</strong> Plugs into the layer to provide deep understanding from customer data, anonymised patterns, and regulatory updates.</li>
-                        <li><strong>The Toolbox (Capabilities):</strong> A collection of pluggable tools, such as messaging, analysis, data visualisation and so on.</li>
-                        <li><strong>The Agent Workforce (Action):</strong> A workforce of digital agents (and human users) that uses the Toolbox and the knowledgebase to carry out tasks.</li>
+                        <li><strong>The Knowledgebase (Data):</strong> Plugs into the layer to provide deep understanding from customer data, anonymised patterns, and legal policy.</li>
+                        <li><strong>The Toolbox (Capabilities):</strong> A collection of pluggable tools, such as me4ssaging, orchestration, or data reporting services.</li>
+                        <li><strong>The Agent Workforce (Action):</strong> A workforce of digital agents (and human users) that uses the Toolbox to carry out tasks.</li>
                     </ul>
                 </div>
                 <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=2070&auto=format&fit=crop" alt="A central gear connecting to other external gears" class="slide-image rounded-r-lg">
@@ -509,11 +580,12 @@
             </div>
         </div>
 
+        <!-- Slide 17: The Vision Part 4: Our Defensible IP -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://images.stockcake.com/public/b/5/2/b523736c-13c0-4804-b535-cc09afc46ae3_large/engineer-reviewing-blueprint-stockcake.jpg" alt="Engineers discussing a blueprint" class="slide-image rounded-l-lg">
                 <div class="content-container">
-                    <h2 class="slide-title">The Vision: Our Defensible IP</h2>
+                    <h2 class="slide-title">Vision: Defensible IP</h2>
                     <p class="slide-subtitle">Orchestration & The Data Network Effect</p>
                     <ul class="mt-8">
                         <li><strong>Orchestration is Core IP:</strong> How the intelligence layer sequences tools and queries the knowledgebase to solve legal problems is our unique, defensible value.</li>
@@ -527,11 +599,12 @@
             </div>
         </div>
 
+        <!-- Slide 18: The Vision Part 5: Responsible Innovation -->
         <div class="slide">
             <div class="slide-content">
                  <img src="https://cdn-lbjgh.nitrocdn.com/cdXsWjOztjzwPTdnKXYAMxHxmEgGOQiG/assets/images/optimized/rev-4aa28e3/ftthfiberoptic.com/wp-content/uploads/2024/09/03_Advantages-of-Data-Centers.jpg" alt="Secure data center or server room" class="slide-image rounded-l-lg">
                 <div class="content-container">
-                    <h2 class="slide-title">The Vision: Responsible Innovation</h2>
+                    <h2 class="slide-title">Vision: Responsible Innovation</h2>
                     <p class="slide-subtitle">Our Non-Negotiable Principles</p>
                     <ul class="mt-8">
                         <li><strong>Security & Data Sovereignty are Paramount:</strong> Design with security at the core and respect all regulations and client data requirements.</li>
@@ -545,11 +618,36 @@
             </div>
         </div>
 
+        <!-- Slide 19: Thank You & Q&A -->
         <div class="slide title-slide">
-            <div class="slide-content">
-                <div>
-                    <h1 class="slide-title text-6xl">Thank You</h1>
-                    <p class="slide-subtitle text-3xl mt-4">Q&A</p>
+            <div class="slide-content flex flex-col justify-center items-center text-center p-8 md:p-16">
+                <div class="mb-12">
+                    <h1 class="slide-title text-4xl">Q&A</h1>
+                </div>
+                <div class="w-full max-w-2xl text-left">
+                    <h3 class="text-xl font-bold text-white mb-6">What We’ve Covered</h3>
+                    <ul class="dark-slide-list mt-6">
+                        <li>
+                            <h3 class="text-xl text-gray-400 mt-10">A Strategic, Scalable Approach to Transformation:</h3>
+                            <span class="block text-base text-gray-300 ml-6 mt-1">People-first change, grounded in purpose and process.</span>
+                        </li>
+                        <li>
+                            <h3 class="text-xl text-gray-400 mt-10">Driving High-Impact ROI:</h3>
+                            <span class="block text-base text-gray-300 ml-6 mt-1">Replaced reactivity with disciplined discovery, prioritisation, and validation.</span>
+                        </li>
+                        <li>
+                            <h3 class="text-xl text-gray-400 mt-10">Increasing Product Velocity Without Sacrificing Quality:</h3>
+                            <span class="block text-base text-gray-300 ml-6 mt-1">Shifted to predictable, safe delivery with short sprints and feedback loops.</span>
+                        </li>
+                        <li>
+                            <h3 class="text-xl text-gray-400 mt-10">Building for Global Scale & Long-Term Resilience:</h3>
+                            <span class="block text-base text-gray-300 ml-6 mt-1">Architectural plans, observability, disaster recovery, and cost control.</span>
+                        </li>
+                        <li>
+                            <h3 class="text-xl text-gray-400 mt-10">Enabling Innovation Through the Intelligence Layer:</h3>
+                            <span class="block text-base text-gray-300 ml-6 mt-1">Future-focused platform design unlocking IP and continuous learning.</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="slide-footer">
@@ -559,18 +657,10 @@
 
     </div>
 
-    <button id="prevBtn" class="nav-button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-    </button>
-    <button id="nextBtn" class="nav-button">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-    </button>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const slides = document.querySelectorAll('.slide');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
             let currentSlide = 0;
             const totalSlides = slides.length;
 
@@ -580,30 +670,8 @@
                     if (index === currentSlide) {
                         slide.classList.add('active');
                     }
-                    const counter = document.getElementById(`slide-counter-${index + 1}`);
-                    if(counter) {
-                       counter.textContent = `Slide ${index + 1} of ${totalSlides}`;
-                    }
                 });
             }
-
-            function showNextSlide() {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                updateSlides();
-            }
-
-            function showPrevSlide() {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                updateSlides();
-            }
-
-            nextBtn.addEventListener('click', showNextSlide);
-            prevBtn.addEventListener('click', showPrevSlide);
-            
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') showNextSlide();
-                else if (e.key === 'ArrowLeft') showPrevSlide();
-            });
 
             updateSlides();
         });
